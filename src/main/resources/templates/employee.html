@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee Payroll</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Background Animation */
+        body {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Arial', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container Styling */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Heading */
+        h2 {
+            color: #333;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Glowing Button */
+        .btn-glow {
+            background: #ff4e50;
+            color: white;
+            border: none;
+            transition: 0.3s;
+            box-shadow: 0px 0px 10px rgba(255, 78, 80, 0.8);
+        }
+
+        .btn-glow:hover {
+            background: #fc6076;
+            box-shadow: 0px 0px 20px rgba(255, 78, 80, 1);
+            transform: scale(1.05);
+        }
+
+        /* Table Styling */
+        table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #ff4e50;
+            color: white;
+        }
+
+        /* Hover Effect on Table Rows */
+        tbody tr:hover {
+            background: #ffdde1;
+            transition: 0.3s;
+        }
+
+        /* Delete Button */
+        .btn-danger {
+            transition: 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #ff3b3b;
+            box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.8);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="text-center">✨ Employee Payroll Management ✨</h2>
+
+    <!-- Employee Form -->
+    <form th:action="@{/employee/add}" method="post" class="mt-4">
+        <div class="mb-3">
+            <label class="form-label fw-bold">Name</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label fw-bold">Salary</label>
+            <input type="text" name="salary" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-glow w-100">➕ Add Employee</button>
+    </form>
+
+    <hr>
+
+    <!-- Employee List -->
+    <h3 class="mt-4 text-center">📋 Employee List</h3>
+    <table class="table table-bordered text-center mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.id}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.salary}"></td>
+            <td>
+                <a th:href="@{/employee/delete/{id}(id=${employee.id})}" class="btn btn-danger btn-sm">❌ Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
