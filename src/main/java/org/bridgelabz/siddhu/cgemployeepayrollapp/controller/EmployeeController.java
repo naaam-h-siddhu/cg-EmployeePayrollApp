@@ -1,38 +1,45 @@
 package org.bridgelabz.siddhu.cgemployeepayrollapp.controller;
 
 import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
-import org.bridgelabz.siddhu.cgemployeepayrollapp.repository.EmployeeRepository;
+import org.bridgelabz.siddhu.cgemployeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeController {
 
     @Autowired
-    private EmployeeRepository repository;
+    private EmployeeService employeeService;
 
-    // Show Employee Page
-    @GetMapping
-    public String showEmployees(Model model) {
-        model.addAttribute("employees", repository.findAll());
-        return "employee";
+    @GetMapping()
+    public String getEmployees(Model model){
+
+        List<Employee> employeeList = employeeService.getEmployees();
+        model.addAttribute("employees",employeeList);
+        return "employee-list";
+
+    }
+    @GetMapping("/add")
+    public String showAddEmployeeForm(Model model) {
+        model.addAttribute("employee", new Employee());
+        return "employee-form"; // This should map to "employee-form.html"
     }
 
-    // Add Employee
     @PostMapping("/add")
-    public String addEmployee(@RequestParam String name, @RequestParam String salary) {
-        Employee employee = new Employee(name, salary);
-        repository.save(employee);
-        return "redirect:/employee";
+    public String addEmployee(@ModelAttribute Employee employee){
+        employeeService.addEmployee(employee.getName(),employee.getSalary());
+        return "redirect:/employees";
     }
 
-    // Delete Employee
     @GetMapping("/delete/{id}")
-    public String deleteEmployee(@PathVariable Long id) {
-        repository.deleteById(id);
-        return "redirect:/employee";
+    public String deleteEmployee(@PathVariable Long id){
+        employeeService.deleteEmployee(id);
+        return "redirect:/employees";
     }
+
 }
