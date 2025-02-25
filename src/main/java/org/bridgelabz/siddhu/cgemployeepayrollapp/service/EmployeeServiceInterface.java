@@ -10,6 +10,7 @@ public interface EmployeeServiceInterface {
     Employee getEmployee(Long id);
     Employee addEmployee(String name, double salary);
     ResponseEntity<?> deleteEmployee(Long id);
+    Employee updateEmployeeSalary(Long id, double salary);
 
 
 }
