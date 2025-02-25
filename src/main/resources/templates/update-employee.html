@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Employee Salary</title>
+</head>
+<body>
+
+<h2>Update Employee Salary</h2>
+
+<form th:action="@{/employees/update/{id}(id=${employee.id})}" method="post">
+    <input type="hidden" name="_method" value="put"> <!-- Thymeleaf trick to use PUT -->
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:value="${employee.name}" disabled>
+    <br>
+
+    <label for="salary">New Salary:</label>
+    <input type="number" id="salary" name="salary" required>
+    <br>
+
+    <button type="submit">Update Salary</button>
+</form>
+
+<a href="/employees">Back to List</a>
+
+</body>
+</html>
