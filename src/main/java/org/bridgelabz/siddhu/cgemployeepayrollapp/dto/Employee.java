@@ -8,7 +8,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String salary;
+    private double salary;
 
     public String getName() {
         return name;
@@ -18,18 +18,18 @@ public class Employee {
         this.name = name;
     }
 
-    public String getSalary() {
+    public double getSalary() {
         return salary;
     }
 
-    public void setSalary(String salary) {
+    public void setSalary(double salary) {
         this.salary = salary;
     }
 
     public Employee() {
     }
 
-    public Employee(String name, String salary) {
+    public Employee(String name, double salary) {
         this.name = name;
         this.salary = salary;
     }
