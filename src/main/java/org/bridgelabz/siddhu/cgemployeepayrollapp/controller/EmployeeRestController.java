@@ -1,5 +1,6 @@
 package org.bridgelabz.siddhu.cgemployeepayrollapp.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.service.EmployeeService;
@@ -25,7 +26,7 @@ public class EmployeeRestController {
     }
 
     @PostMapping("/add")
-    public Employee addEmployee(@RequestBody Employee employee) {
+    public Employee addEmployee(@Valid @RequestBody Employee employee) {
         log.info("Adding new employee: Name={}, Salary={}", employee.getName(), employee.getSalary());
         return employeeService.addEmployee(employee.getName(), employee.getSalary());
     }
@@ -43,14 +44,8 @@ public class EmployeeRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id,@Valid @RequestBody Employee employee) {
         log.info("Updating employee with ID={}, New Name={}, New Salary={}", id, employee.getName(), employee.getSalary());
-        Employee temp = employeeService.updateEmployeeSalary(id, employee.getName(), employee.getSalary());
-        if (temp == null) {
-            log.warn("Employee with ID={} not found", id);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id " + id);
-        }
-        log.info("Employee with ID={} updated successfully", id);
-        return ResponseEntity.ok("Updated Successfully");
+        return employeeService.updateEmployeeSalary(id,employee.getName(),employee.getSalary());
     }
 }

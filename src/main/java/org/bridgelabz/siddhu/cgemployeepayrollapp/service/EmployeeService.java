@@ -43,14 +43,15 @@ public class EmployeeService implements EmployeeServiceInterface{
     }
 
     @Override
-    public Employee updateEmployeeSalary(Long id, String name, double salary){
+    public ResponseEntity<?> updateEmployeeSalary(Long id, String name, double salary){
         Employee employee = employeeRepository.findById(id).get();
         if(employeeRepository.existsById(id)){
             employee.setSalary(salary);
             employee.setName(name);
-            return employeeRepository.save(employee);
+            employeeRepository.save(employee);
+            return ResponseEntity.ok("Updated Successfully");
         }
-        return null;
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id "+id);
 
     }
 }
