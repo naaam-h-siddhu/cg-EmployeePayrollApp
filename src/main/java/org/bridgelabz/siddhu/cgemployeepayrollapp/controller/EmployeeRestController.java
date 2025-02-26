@@ -1,5 +1,6 @@
 package org.bridgelabz.siddhu.cgemployeepayrollapp.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/employee")
 public class EmployeeRestController {
