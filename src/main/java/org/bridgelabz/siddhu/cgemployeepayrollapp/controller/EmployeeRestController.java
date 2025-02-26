@@ -3,6 +3,7 @@ package org.bridgelabz.siddhu.cgemployeepayrollapp.controller;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,14 @@ public class EmployeeRestController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> Employee(@PathVariable Long id){
         return employeeService.deleteEmployee(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
+        Employee temp = employeeService.updateEmployeeSalary(id, employee.getSalary());
+        if(temp == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id " + id);
+        }
+        return ResponseEntity.ok("Updated Successfully");
     }
 }
