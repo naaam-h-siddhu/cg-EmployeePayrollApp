@@ -40,7 +40,7 @@ public class EmployeeRestController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody Employee employee){
-        Employee temp = employeeService.updateEmployeeSalary(id, employee.getSalary());
+        Employee temp = employeeService.updateEmployeeSalary(id,employee.getName(), employee.getSalary());
         if(temp == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id " + id);
         }

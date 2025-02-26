@@ -41,18 +41,5 @@ public class EmployeeController {
         return "redirect:/employees";
     }
 
-    // ✅ Add this method to show the update form
-    @GetMapping("/update/{id}")
-    public String showUpdateEmployeeForm(@PathVariable Long id, Model model) {
-        Employee employee = employeeService.getEmployee(id);
-        model.addAttribute("employee", employee);
-        return "update-employee"; // Maps to update-employee.html
-    }
 
-    // ✅ Fix the PUT request handling
-    @PostMapping("/update/{id}") // HTML form can only use POST, so we handle it as POST
-    public String updateEmployee(@PathVariable Long id, @RequestParam double salary) {
-        employeeService.updateEmployeeSalary(id, salary);
-        return "redirect:/employees"; // Redirect after update
-    }
 }
