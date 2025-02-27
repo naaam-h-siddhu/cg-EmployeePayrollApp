@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -32,7 +33,7 @@ public class EmployeeRestController {
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable Long id) {
+    public Employee getEmployeeById(@Valid @PathVariable Long id) {
         log.info("Fetching employee with ID={}", id);
         return employeeService.getEmployee(id);
     }
