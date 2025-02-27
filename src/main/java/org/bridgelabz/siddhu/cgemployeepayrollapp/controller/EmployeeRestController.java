@@ -2,15 +2,13 @@ package org.bridgelabz.siddhu.cgemployeepayrollapp.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
+import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.EmployeeDTO;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -21,19 +19,19 @@ public class EmployeeRestController {
     private EmployeeService employeeService;
 
     @GetMapping()
-    public List<Employee> getEmployee() {
+    public List<EmployeeDTO> getEmployee() {
         log.info("Fetching all employees");
         return employeeService.getEmployees();
     }
 
     @PostMapping("/add")
-    public Employee addEmployee(@Valid @RequestBody Employee employee) {
-        log.info("Adding new employee: Name={}, Salary={}", employee.getName(), employee.getSalary());
-        return employeeService.addEmployee(employee.getName(), employee.getSalary());
+    public EmployeeDTO addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+        log.info("Adding new employee: Name={}, Salary={}", employeeDTO.getName(), employeeDTO.getSalary());
+        return employeeService.addEmployee(employeeDTO.getName(), employeeDTO.getSalary());
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@Valid @PathVariable Long id) {
+    public EmployeeDTO getEmployeeById(@Valid @PathVariable Long id) {
         log.info("Fetching employee with ID={}", id);
         return employeeService.getEmployee(id);
     }
@@ -45,8 +43,8 @@ public class EmployeeRestController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Long id,@Valid @RequestBody Employee employee) {
-        log.info("Updating employee with ID={}, New Name={}, New Salary={}", id, employee.getName(), employee.getSalary());
-        return employeeService.updateEmployeeSalary(id,employee.getName(),employee.getSalary());
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id,@Valid @RequestBody EmployeeDTO employeeDTO) {
+        log.info("Updating employee with ID={}, New Name={}, New Salary={}", id, employeeDTO.getName(), employeeDTO.getSalary());
+        return employeeService.updateEmployeeSalary(id, employeeDTO.getName(), employeeDTO.getSalary());
     }
 }
