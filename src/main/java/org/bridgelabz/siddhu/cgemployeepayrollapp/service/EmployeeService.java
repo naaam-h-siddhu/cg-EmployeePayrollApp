@@ -62,4 +62,8 @@ public class EmployeeService implements EmployeeServiceInterface{
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id "+id);
 
     }
+    @Override
+    public List<EmployeePayrollData> getEmployessByDepartment(String department) {
+        return employeeRepository.findEmployeePayrollDataByDepartments(department);
+    }
 }

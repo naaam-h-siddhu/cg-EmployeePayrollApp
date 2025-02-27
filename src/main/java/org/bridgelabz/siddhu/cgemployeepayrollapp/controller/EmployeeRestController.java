@@ -46,4 +46,9 @@ public class EmployeeRestController {
         return employeeService.updateEmployeeSalary(id,employeeDTO);
     }
 
+    @GetMapping("/dept/{departments}")
+    public List<EmployeePayrollData> getEmployeeByDepartments(@PathVariable("departments") String departments) {
+        return employeeService.getEmployessByDepartment(departments);
+    }
+
 }
