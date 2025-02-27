@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Pattern(regexp = "^[A-Za-z ]+$",message = "Only alphabets and space allowed")

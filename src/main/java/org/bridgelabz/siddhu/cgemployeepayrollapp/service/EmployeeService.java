@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.net.http.HttpResponse;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface{
@@ -25,7 +26,7 @@ public class EmployeeService implements EmployeeServiceInterface{
 
     @Override
     public Employee getEmployee(Long id) {
-        return employeeRepository.findById(id).orElse(null);
+        return employeeRepository.findById(id).get();
     }
 
     @Override
