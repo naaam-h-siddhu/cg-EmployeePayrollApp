@@ -1,15 +1,19 @@
 package org.bridgelabz.siddhu.cgemployeepayrollapp.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.EmployeeDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name = "Employee_Payroll")
 public class EmployeePayrollData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "EmployeeID")
     private Long id;
 
     @Column(name = "EmployeeName")
@@ -21,8 +25,10 @@ public class EmployeePayrollData {
     private String profilePic;
 
 
-//    @ElementCollection
-//    private List<String> deparment;
+    @ElementCollection
+    @CollectionTable(name = "employee_department",joinColumns = @JoinColumn(name = "EmployeeId"))
+    @Column(name = "department")
+    private List<String> departments;
 
 
     public EmployeePayrollData() {
@@ -35,6 +41,7 @@ public class EmployeePayrollData {
         this.note = employeeDTO.getNote();
         this.startDate = employeeDTO.getStartDate();
         this.profilePic = employeeDTO.getProfilePic();
+        this.departments= employeeDTO.getDepartments();
 
     }
 }
