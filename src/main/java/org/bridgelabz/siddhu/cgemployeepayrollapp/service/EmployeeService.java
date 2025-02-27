@@ -1,16 +1,13 @@
 package org.bridgelabz.siddhu.cgemployeepayrollapp.service;
 
-import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.Employee;
+import org.bridgelabz.siddhu.cgemployeepayrollapp.dto.EmployeeDTO;
 import org.bridgelabz.siddhu.cgemployeepayrollapp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.net.http.HttpResponse;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EmployeeService implements EmployeeServiceInterface{
@@ -20,18 +17,18 @@ public class EmployeeService implements EmployeeServiceInterface{
 
 
     @Override
-    public List<Employee> getEmployees() {
+    public List<EmployeeDTO> getEmployees() {
         return employeeRepository.findAll();
     }
 
     @Override
-    public Employee getEmployee(Long id) {
+    public EmployeeDTO getEmployee(Long id) {
         return employeeRepository.findById(id).get();
     }
 
     @Override
-    public Employee addEmployee(String name, double salary) {
-        return  employeeRepository.save(new Employee(name,salary));
+    public EmployeeDTO addEmployee(String name, double salary) {
+        return  employeeRepository.save(new EmployeeDTO(name,salary));
     }
 
     @Override
@@ -45,11 +42,11 @@ public class EmployeeService implements EmployeeServiceInterface{
 
     @Override
     public ResponseEntity<?> updateEmployeeSalary(Long id, String name, double salary){
-        Employee employee = employeeRepository.findById(id).get();
+        EmployeeDTO employeeDTO = employeeRepository.findById(id).get();
         if(employeeRepository.existsById(id)){
-            employee.setSalary(salary);
-            employee.setName(name);
-            employeeRepository.save(employee);
+            employeeDTO.setSalary(salary);
+            employeeDTO.setName(name);
+            employeeRepository.save(employeeDTO);
             return ResponseEntity.ok("Updated Successfully");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found with id "+id);
